@@ -35,15 +35,15 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
     alias: {
       'styles': __dirname + '/src/styles',
-      'components': __dirname + '/src/components/',
-      'reducers': __dirname + '/src/reducers/',
-      'actions': __dirname + '/src/actions/'
+      'components': __dirname + '/javascript/src/components/',
+      'reducers': __dirname + '/javascript/src/reducers/',
+      'actions': __dirname + '/javascript/src/actions/'
     }
   },
   module: {
     preLoaders: [{
       test: /\.(js|jsx)$/,
-      exclude: [/node_module/],
+      exclude: [/node_modules/],
       loader: 'eslint'
     }],
     loaders: [{

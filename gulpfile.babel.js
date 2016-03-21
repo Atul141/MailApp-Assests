@@ -2,6 +2,7 @@ import gulp from 'gulp';
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+import WebpackConfig from './webpack.config.js';
 
 import del from 'del';
 import RunSequence from 'run-sequence';
@@ -48,21 +49,21 @@ gulp.task('build:watch', ['clean'], (cb) => {
   });
 });
 
-gulp.task('serve', () => {
-  const config = require('./webpack.config');
-  const bundler = webpack(config);
-  let server = new WebpackDevServer(bundler, {
-    contentBase: './javascript/src',
-    publicPath: './assets/',
-    hot: true,
-    stats: {
-      colors: true
-    },
-    proxy: {
-       "/api/*":  "http://localhost:7000/"
-    }
-  });
-  server.listen(9999, '0.0.0.0', (err) => {
-    console.log('Starting Mailbox app on :9999');
-  });
+gulp.task("webpack-dev-server", function(callback) {
+    var myConfig = Object.create(WebpackConfig);
+    myConfig.devtool = "eval";
+    myConfig.debug = true;
+
+    new WebpackDevServer(webpack(myConfig), {
+        publicPath: "/" + myConfig.output.publicPath,
+        stats: {
+            colors: true
+        }
+
+    }).listen(9999, "localhost", function(err) {
+        if (err) throw new gutil.PluginError("webpack-dev-server", err);
+        console.log("Mailbox app starting on :9999");
+
+    });
 });
+
