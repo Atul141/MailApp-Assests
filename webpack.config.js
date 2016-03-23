@@ -5,8 +5,8 @@
  * the subfolder /webpack-dev-server/ is visited. Visiting the root will not automatically reload.
  */
 'use strict';
-var webpack = require('webpack');
 
+var webpack = require('webpack');
 var assetPath = require('path').join(__dirname, 'public');
 
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: assetPath,
     filename: 'main.js',
-    publicPath: '/public/'
+    publicPath: './public'
   },
 
   cache: true,
@@ -23,7 +23,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:9999',
     'webpack/hot/dev-server',
-    './javascript/src/main.js'
+    './assets/javascript/src/main.js'
   ],
 
   stats: {
@@ -34,10 +34,10 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-      'styles': __dirname + '/src/styles',
-      'components': __dirname + '/javascript/src/components/',
-      'reducers': __dirname + '/javascript/src/reducers/',
-      'actions': __dirname + '/javascript/src/actions/'
+      'styles': __dirname + '/assets/styles',
+      'components': __dirname + '/assets/javascript/src/components/',
+      'reducers': __dirname + '/assets/javascript/src/reducers/',
+      'actions': __dirname + '/assets/javascript/src/actions/'
     }
   },
   module: {
