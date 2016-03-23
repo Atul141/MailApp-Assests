@@ -24,7 +24,7 @@ gulp.task('clean', (cb) => {
 
 gulp.task('html', () => {
   return gulp.src(['src/*.html'])
-    .pipe(gulp.dest(assetsPath)));
+    .pipe(gulp.dest(assetsPath));
 });
 
 gulp.task('favicon', () => {
