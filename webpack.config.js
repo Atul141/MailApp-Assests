@@ -7,7 +7,7 @@
 'use strict';
 var webpack = require('webpack');
 
-var assetPath = require('path').join(__dirname, 'dist');
+var assetPath = require('path').join(__dirname, 'public');
 
 module.exports = {
 

@@ -7,8 +7,14 @@ import WebpackConfig from './webpack.config.js';
 import del from 'del';
 import RunSequence from 'run-sequence';
 
-let options = {};
-var assetsPath = './out';
+import path from 'path';
+
+
+var assetsPath = '/public';
+
+gulp.task('default', () => {
+  RunSequence('clean', ['html', 'favicon', 'styles', 'images', 'fontello', 'javascript'], 'watch');
+});
 
 gulp.task('clean', (cb) => {
   del([assetsPath], {
@@ -16,10 +22,36 @@ gulp.task('clean', (cb) => {
   }, cb);
 });
 
-// run webpack bundler
-gulp.task('bundle', (cb) => {
-  const config = require('./webpack.config');
-  const bundler = webpack(config);
+gulp.task('html', () => {
+  return gulp.src(['src/*.html'])
+    .pipe(gulp.dest(assetsPath)));
+});
+
+gulp.task('favicon', () => {
+  return gulp.src(['src/favicon'])
+    .pipe(gulp.dest(path.join(assetsPath, "favicon")));
+});
+
+gulp.task('styles', () => {
+  return gulp.src([path.join('src', 'styles')])
+    .pipe(gulp.dest(path.join(assetsPath, "styles")));
+});
+
+gulp.task('images', () => {
+  return gulp.src([path.join('src', 'images')])
+    .pipe(gulp.dest(path.join(assetsPath, "images")));
+});
+
+gulp.task('fontello', () => {
+  return gulp.src([path.join('src', 'fontello')])
+    .pipe(gulp.dest(path.join(assetsPath, "fontello")));
+});
+
+
+let options = {};
+
+gulp.task('javascript', () => {
+  const bundler = webpack(WebpackConfig);
 
   const bundlerCb = (err, stats) => {
     console.log(stats.toString());
@@ -30,19 +62,21 @@ gulp.task('bundle', (cb) => {
   } else {
     bundler.run(bundlerCb);
   }
-
 });
 
-gulp.task('assets', (cb) => {
-  return gulp.src(['assets/**'])
-    .pipe(gulp.dest(assetsPath));
+
+gulp.task('watch', function(){
+  gulp.watch('src/stylesheet/**/*.scss', ['styles']);
+  gulp.watch('src/**/*.html', ['html']);
+  gulp.watch('src/js/**/*.js', ['scripts']);
+  gulp.watch('src/img/**/*', ['images']);
 });
 
-gulp.task('build', ['clean'], (cb) => {
-  RunSequence(['assets', 'bundle'], cb)
-});
 
-gulp.task('build:watch', ['clean'], (cb) => {
+
+
+
+gulp.task('watch', ['clean'], (cb) => {
   options.watch = true;
   RunSequence(['build'], () => {
       gulp.watch(['assets']);
