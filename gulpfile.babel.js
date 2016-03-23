@@ -9,48 +9,45 @@ import RunSequence from 'run-sequence';
 
 import path from 'path';
 
-
-var assetsPath = '/public';
+const assetsPath = './public';
+let options = {};
 
 gulp.task('default', () => {
-  RunSequence('clean', ['html', 'favicon', 'styles', 'images', 'fontello', 'javascript'], 'watch');
+    RunSequence('build-clean', ['build-html', 'build-favicon', 'build-styles', 'build-images', 'build-fontello', 'build-javascript']);
 });
 
-gulp.task('clean', (cb) => {
-  del([assetsPath], {
+gulp.task('build-clean', (cb) => {
+  return del([assetsPath], {
     force: true
   }, cb);
 });
 
-gulp.task('html', () => {
-  return gulp.src(['src/*.html'])
+gulp.task('build-html', () => {
+  return gulp.src([path.join('assets', '*.html')])
     .pipe(gulp.dest(assetsPath));
 });
 
-gulp.task('favicon', () => {
-  return gulp.src(['src/favicon'])
+gulp.task('build-favicon', () => {
+  return gulp.src([path.join('assets', 'favicon')])
     .pipe(gulp.dest(path.join(assetsPath, "favicon")));
 });
 
-gulp.task('styles', () => {
-  return gulp.src([path.join('src', 'styles')])
+gulp.task('build-styles', () => {
+  return gulp.src([path.join('assets', 'styles')])
     .pipe(gulp.dest(path.join(assetsPath, "styles")));
 });
 
-gulp.task('images', () => {
-  return gulp.src([path.join('src', 'images')])
+gulp.task('build-images', () => {
+  return gulp.src([path.join('assets', 'images')])
     .pipe(gulp.dest(path.join(assetsPath, "images")));
 });
 
-gulp.task('fontello', () => {
-  return gulp.src([path.join('src', 'fontello')])
+gulp.task('build-fontello', () => {
+  return gulp.src([path.join('assets', 'fontello')])
     .pipe(gulp.dest(path.join(assetsPath, "fontello")));
 });
 
-
-let options = {};
-
-gulp.task('javascript', () => {
+gulp.task('build-javascript', () => {
   const bundler = webpack(WebpackConfig);
 
   const bundlerCb = (err, stats) => {
@@ -64,38 +61,25 @@ gulp.task('javascript', () => {
   }
 });
 
-
-gulp.task('watch', function(){
+gulp.task('build-watch', () => {
   gulp.watch('src/stylesheet/**/*.scss', ['styles']);
-  gulp.watch('src/**/*.html', ['html']);
+  gulp.watch('src/*.html', ['html']);
   gulp.watch('src/js/**/*.js', ['scripts']);
   gulp.watch('src/img/**/*', ['images']);
 });
 
-
-
-
-
-gulp.task('watch', ['clean'], (cb) => {
-  options.watch = true;
-  RunSequence(['build'], () => {
-      gulp.watch(['assets']);
-  });
-});
-
-gulp.task("webpack-dev-server", function(callback) {
+gulp.task("server", function(callback) {
     var myConfig = Object.create(WebpackConfig);
     myConfig.devtool = "eval";
     myConfig.debug = true;
 
     new WebpackDevServer(webpack(myConfig), {
-        publicPath: "/" + myConfig.output.publicPath,
+        contentBase: myConfig.output.publicPath,
         stats: {
             colors: true
         }
-
     }).listen(9999, "localhost", function(err) {
-        if (err) throw new gutil.PluginError("webpack-dev-server", err);
+        if (err) throw new console.log("webpack-dev-server error:", err);
         console.log("Mailbox app starting on :9999");
 
     });
