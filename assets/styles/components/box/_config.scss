@@ -1,0 +1,7 @@
+$box-background-color: map-get($brand-colors, quinary-color);
+
+$box-border-color: map-get($brand-colors, quaternary-color);
+$box-border-width: 1px;
+$box-border: $box-border-color solid $box-border-width;
+
+$box-padding: map-get($spacer, spacer-10);

@@ -13,7 +13,7 @@ const assetsPath = './public';
 let options = {};
 
 gulp.task('default', () => {
-    RunSequence('build-clean', ['build-html', 'build-favicon', 'build-styles', 'build-images', 'build-fontello', 'build-javascript']);
+    RunSequence('build-clean', ['build-html', 'build-favicon', 'build-images', 'build-fontello'], 'build');
 });
 
 gulp.task('build-clean', (cb) => {
@@ -32,22 +32,17 @@ gulp.task('build-favicon', () => {
     .pipe(gulp.dest(path.join(assetsPath, "favicon")));
 });
 
-gulp.task('build-styles', () => {
-  return gulp.src([path.join('assets', 'styles')])
-    .pipe(gulp.dest(path.join(assetsPath, "styles")));
-});
-
 gulp.task('build-images', () => {
-  return gulp.src([path.join('assets', 'images')])
+  return gulp.src('assets/images/**/*.*')
     .pipe(gulp.dest(path.join(assetsPath, "images")));
 });
 
 gulp.task('build-fontello', () => {
-  return gulp.src([path.join('assets', 'fontello')])
+  return gulp.src('assets/styles/fontello/**/*.*')
     .pipe(gulp.dest(path.join(assetsPath, "fontello")));
 });
 
-gulp.task('build-javascript', () => {
+gulp.task('build', () => {
   const bundler = webpack(WebpackConfig);
 
   const bundlerCb = (err, stats) => {
@@ -59,13 +54,6 @@ gulp.task('build-javascript', () => {
   } else {
     bundler.run(bundlerCb);
   }
-});
-
-gulp.task('build-watch', () => {
-  gulp.watch('src/stylesheet/**/*.scss', ['styles']);
-  gulp.watch('src/*.html', ['html']);
-  gulp.watch('src/js/**/*.js', ['scripts']);
-  gulp.watch('src/img/**/*', ['images']);
 });
 
 gulp.task("server", function(callback) {

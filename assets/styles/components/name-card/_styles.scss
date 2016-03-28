@@ -1,0 +1,27 @@
+.name-card-container{
+  background: $name-card-background;
+  padding: $name-card-padding;
+  border: $box-border;
+  margin-bottom: map-get($spacer, spacer-10);
+  .name-card{
+    .profile-image{
+      float: left;
+      margin-right: $name-card-image-spacing;
+      img{
+        border: $box-border;
+      }
+    }
+    .name-and-phone-number{
+      span{
+        display: block;
+        padding: $name-card-name-phone-number-spacing;
+      }
+    }
+  }
+  .seller-detail{
+    margin-top: map-get($spacer, spacer-10);
+  }
+  table{
+    margin-bottom: 0;
+  }
+}

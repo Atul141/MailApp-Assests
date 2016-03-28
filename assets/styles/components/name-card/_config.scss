@@ -1,0 +1,4 @@
+$name-card-background: map-get($brand-colors, quinary-color);
+$name-card-padding: map-get($spacer, spacer-10);
+$name-card-image-spacing: $name-card-padding;
+$name-card-name-phone-number-spacing: $name-card-padding 0 0;

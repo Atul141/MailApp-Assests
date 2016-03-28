@@ -1,0 +1,33 @@
+body{
+  background-color: $body-backgroud-color;
+  font-family: $body-text;
+}
+
+.form-element-with-icon{
+  position: relative;
+  .icon-inside-element{
+    font-size: 15px;
+    position: absolute;
+    top: 5px;
+  }
+  &.right{
+    .icon-inside-element{
+      left: auto;
+      right: 5px;
+    }
+    .form-element{
+      padding-right: 25px;
+    }
+  }
+  &.left{
+    .icon-inside-element{
+      left: 5px;
+    }
+    .form-element{
+      padding-left: 25px;
+    }
+  }
+}
+[class^="icon-"]{
+  cursor: pointer;
+}
