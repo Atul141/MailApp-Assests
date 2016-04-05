@@ -1,5 +1,6 @@
 import React from 'react';
+import ParcelCard from './ParcelCard.react';
 
-const App = () => <div className="box">World, Hello</div>;
+const App = () => <ParcelCard />;
 
 export default App;
