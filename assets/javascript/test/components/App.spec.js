@@ -3,13 +3,14 @@ import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 
 import App from '../../src/components/App';
+import ParcelCard from '../../src/components/ParcelCard.react';
 
 function setup() {
   const renderer = ReactTestUtils.createRenderer();
   renderer.render(<App />);
 
   const result = renderer.getRenderOutput();
-  
+
   return {
     result: result,
   };
@@ -21,9 +22,7 @@ describe('components', () => {
     it('should render the App component', () => {
       const { result } = setup();
 
-      expect(result.type).toBe('div');
-      expect(result.props.className).toEqual('box');
-      expect(result.props.children).toEqual('World, Hello');
+      expect(result.type).toBe(ParcelCard);
     });
   });
 });

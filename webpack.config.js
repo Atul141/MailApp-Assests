@@ -57,7 +57,7 @@ module.exports = {
       test: /\.scss$/,
       exclude: [/node_modules/, /fontello/],
       loader: ExtractTextPlugin.extract(
-        'style', 
+        'style',
         'css!sass'
       )
     }, {

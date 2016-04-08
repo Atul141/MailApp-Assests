@@ -7,10 +7,13 @@ import WebpackConfig from './webpack.config.js';
 import del from 'del';
 import RunSequence from 'run-sequence';
 
+import mocha from 'gulp-mocha';
+
 import path from 'path';
 
 const assetsPath = './public';
 let options = {};
+const TEST_FILES = "./assets/javascript/test/**/*.js";
 
 gulp.task('default', () => {
     RunSequence('build-clean', ['build-html', 'build-favicon', 'build-images', 'build-fontello'], 'build');
@@ -28,7 +31,7 @@ gulp.task('build-html', () => {
 });
 
 gulp.task('build-favicon', () => {
-  return gulp.src([path.join('assets', 'favicon')])
+  return gulp.src('assets/favicon/**.*')
     .pipe(gulp.dest(path.join(assetsPath, "favicon")));
 });
 
@@ -54,6 +57,16 @@ gulp.task('build', () => {
   } else {
     bundler.run(bundlerCb);
   }
+});
+
+gulp.task('test', () => {
+  return gulp.src(TEST_FILES)
+         .pipe(mocha({}));
+});
+
+gulp.task('tdd', ['test'], () => {
+  return gulp.watch([TEST_FILES],
+      ['test']).on('error', console.log)
 });
 
 gulp.task("server", function(callback) {
