@@ -1,6 +1,6 @@
 import React from 'react';
-import ParcelCard from './ParcelCard.react';
+import ParcelCreateContainer from './ParcelCreateContainer.react';
 
-const App = () => <ParcelCard />;
+const App = () => <ParcelCreateContainer />;
 
 export default App;
