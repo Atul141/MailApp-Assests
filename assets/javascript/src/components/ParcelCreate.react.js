@@ -1,6 +1,10 @@
 import React from 'react';
 
-const ParcelCreateContainer = () => {
+const ParcelCreate = () => {
+  // store.dispatch(fetchDealers).then(() =>
+  //   console.log(store.getState())
+  // );
+
   const dealers = [
     {
       name: 'Amazon',
@@ -68,4 +72,4 @@ const ParcelCreateContainer = () => {
 );
 };
 
-export default ParcelCreateContainer;
+export default ParcelCreate;
