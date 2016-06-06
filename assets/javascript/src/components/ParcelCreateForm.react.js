@@ -1,35 +1,10 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const ParcelCreate = () => {
-  // store.dispatch(fetchDealers).then(() =>
-  //   console.log(store.getState())
-  // );
+const ParcelCreateForm = (props) => {
+  const dealers = props.dealers;
 
-  const dealers = [
-    {
-      name: 'Amazon',
-      id: 'some-id',
-      icon: 'url',
-    },
-    {
-      name: 'Flipkart',
-      id: 'some-id',
-      icon: 'url',
-    },
-    {
-      name: 'Ebay',
-      id: 'some-id',
-      icon: 'url',
-    },
-    {
-      name: 'Others',
-      id: 'some-id',
-      icon: 'url',
-    },
-  ];
-
-  const dealerDetails = dealers.map((dealer) =>
-    <option value={dealer.id}>{dealer.name}</option>
+  const dealerDetails = dealers.map((dealer, i) =>
+    <option key={`dealer-${i}`}value={dealer.id}>{dealer.name}</option>
   );
 
   return (
@@ -72,4 +47,8 @@ const ParcelCreate = () => {
 );
 };
 
-export default ParcelCreate;
+export default ParcelCreateForm;
+
+ParcelCreateForm.propTypes = {
+  dealers: PropTypes.array.isRequired,
+};
