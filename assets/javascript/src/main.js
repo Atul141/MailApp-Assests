@@ -1,40 +1,31 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createDevTools } from 'redux-devtools';
-import LogMonitor from 'redux-devtools-log-monitor';
-import DockMonitor from 'redux-devtools-dock-monitor';
-
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import { createStore, combineReducers } from 'redux';
-import { Router, Route, browserHistory } from 'react-router';
+import createHashHistory from 'history/lib/createHashHistory';
+import { Router, Route, useRouterHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-import App from './components/App';
-import * as reducers from './reducers';
 
-const DevTools = createDevTools(
-    <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
-      <LogMonitor theme="tomorrow" preserveScrollTop={false} />
-    </DockMonitor>
-);
+import App from './containers/App';
+import ParcelCreateForm from './components/ParcelCreateForm.react';
+import ParcelCard from './components/ParcelCard.react';
 
-const store = createStore(
-      combineReducers({
-        ...reducers,
-        routing: routerReducer,
-      }),
-      DevTools.instrument(),
-);
+import { configureStore, DevTools } from './stores/AppStore';
 
-const history = syncHistoryWithStore(browserHistory, store);
+const store = configureStore({});
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 ReactDOM.render(
     <Provider store={store}>
     <div>
-        <Router history={history}>
-            <Route path="/" component={App} />
+        <Router history={ appHistory }>
+            <Route path="/" component={App} >
+              <IndexRoute component={ParcelCard} />
+              <Route path="parcels" component={ParcelCreateForm} />
+            </Route>
         </Router>
-    <DevTools />
+        <DevTools />
     </div>
     </Provider>,
     document.getElementById('root')
