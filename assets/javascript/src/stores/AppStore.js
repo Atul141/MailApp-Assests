@@ -5,12 +5,11 @@ import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import DockMonitor from 'redux-devtools-dock-monitor';
 import { applyMiddleware, compose, createStore } from 'redux';
-
 import createLogger from 'redux-logger';
 
 let store;
 
-const DevTools = createDevTools(
+export const DevTools = createDevTools(
     <DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
       <LogMonitor theme="tomorrow" preserveScrollTop={false} />
     </DockMonitor>
