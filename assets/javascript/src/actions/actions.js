@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import Constants from '../constants';
 
 export const RECEIVE_DEALERS = 'RECEIVE_DEALERS';
 
@@ -11,7 +12,7 @@ function receiveDealers(dealers) {
 
 export function fetchDealers() {
   return dispatch =>
-    fetch('http://localhost:8083/dealers')
+    fetch(`${Constants.ServerBaseURL}/${Constants.DealersFetchPath}`)
       .then(response => response.json())
       .then(json => dispatch(receiveDealers(json)));
 }
