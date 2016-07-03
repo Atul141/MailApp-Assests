@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import AutoCompleteInputBox from './AutoCompleteInputBox.react';
 
 const ParcelCreateForm = (props) => {
   const dealers = props.dealers;
@@ -15,7 +16,7 @@ const ParcelCreateForm = (props) => {
 
         <div className="form-group">
           <label htmlFor="name">Name: </label>
-          <input type="text" className="form-control" name="" id="name" />
+          <AutoCompleteInputBox fetchUsers={props.actions.fetchUsers} {...props} />
         </div>
 
         <div className="form-group">
@@ -47,8 +48,9 @@ const ParcelCreateForm = (props) => {
 );
 };
 
-export default ParcelCreateForm;
-
 ParcelCreateForm.propTypes = {
   dealers: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
 };
+
+export default ParcelCreateForm;
