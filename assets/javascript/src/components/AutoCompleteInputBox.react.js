@@ -7,7 +7,6 @@ function getSuggestionValue(suggestion) {
 }
 
 function renderSuggestion(suggestion) {
-  console.log(suggestion);
   return (
     <span>{suggestion.name}</span>
   );
@@ -61,11 +60,13 @@ class AutoCompleteInputBox extends React.Component {
     this.setState({
       value: suggestionValue,
     });
+    this.props.selectUser(suggestion);
   }
 }
 
 AutoCompleteInputBox.propTypes = {
   fetchUsers: PropTypes.func.isRequired,
+  selectUser: PropTypes.func.isRequired,
   users: PropTypes.array.isRequired,
 };
 

@@ -1,14 +1,26 @@
 import React, { PropTypes } from 'react';
 import AutoCompleteInputBox from './AutoCompleteInputBox.react';
 
-const ParcelCreateForm = (props) => {
-  const dealers = props.dealers;
+class ParcelCreateForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: undefined,
+    };
+  }
 
-  const dealerDetails = dealers.map((dealer, i) =>
-    <option key={`dealer-${i}`}value={dealer.id}>{dealer.name}</option>
-  );
+  render() {
+    const dealers = this.props.dealers;
+    let user = {email: ''};
+    if (this.props.selectedUser) {
+      user = this.props.selectedUser;
+    }
+    console.log('THis', user);
+    const dealerDetails = dealers.map((dealer, i) =>
+      <option key={`dealer-${i}`}value={dealer.id}>{dealer.name}</option>
+    );
 
-  return (
+    return (
   <div className="container">
     <div className="well well-sm">
     <div className="row">
@@ -16,17 +28,23 @@ const ParcelCreateForm = (props) => {
 
         <div className="form-group">
           <label htmlFor="name">Name: </label>
-          <AutoCompleteInputBox fetchUsers={props.actions.fetchUsers} {...props} />
+          <AutoCompleteInputBox fetchUsers={this.props.actions.fetchUsers}
+            selectUser={this.props.actions.selectUser} {...this.props}
+          />
         </div>
 
         <div className="form-group">
           <label htmlhtmlFor="mobile">Mobile</label>
-          <input type="tel" className="form-control" name="mobile" id="mobile" />
+          <input type="tel" className="form-control" name="mobile"
+            id="mobile" value={user.email}
+          />
         </div>
 
         <div className="form-group">
           <label htmlhtmlFor="Email">Email</label>
-          <input type="email" className="form-control" name="Email" id="Email" />
+          <input type="email" className="form-control" name="Email"
+            id="Email" value={user.email}
+          />
         </div>
       </div>
 
@@ -46,11 +64,13 @@ const ParcelCreateForm = (props) => {
     </div>
   </div>
 );
-};
+  }
+}
 
 ParcelCreateForm.propTypes = {
   dealers: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
+  selectedUser: PropTypes.object.isRequired,
 };
 
 export default ParcelCreateForm;

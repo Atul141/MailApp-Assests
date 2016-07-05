@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_DEALERS, RECEIVE_USERS } from '../actions/actions';
+import { RECEIVE_DEALERS, RECEIVE_USERS, SELECT_USER } from '../actions/actions';
 
 function dealers(state = {
   dealers: [],
@@ -28,9 +28,23 @@ function users(state = {
   }
 }
 
+function selectedUser(state = {
+  selectedUser: undefined,
+}, action) {
+  switch (action.type) {
+  case SELECT_USER:
+    return Object.assign({}, state, {
+      selectedUser: action.user,
+    });
+  default:
+    return state;
+  }
+}
+
 const rootReducer = combineReducers({
   dealers,
   users,
+  selectedUser,
 });
 
 export default rootReducer;

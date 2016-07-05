@@ -3,6 +3,7 @@ import Constants from '../constants';
 
 export const RECEIVE_DEALERS = 'RECEIVE_DEALERS';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
+export const SELECT_USER = 'SELECT_USER';
 
 function receiveDealers(dealers) {
   return {
@@ -18,6 +19,14 @@ function receiveUsers(users) {
   };
 }
 
+function populateUser(user) {
+  console.log('ppp user', user);
+  return {
+    type: SELECT_USER,
+    user,
+  };
+}
+
 export function fetchDealers() {
   return dispatch =>
     fetch(`${Constants.ServerBaseURL}/${Constants.DealersFetchPath}`)
@@ -30,4 +39,9 @@ export function fetchUsers(token) {
     fetch(`${Constants.ServerBaseURL}/users/search?q=${token}`)
       .then(response => response.json())
       .then(json => dispatch(receiveUsers(json)));
+}
+
+export function selectUser(user) {
+  return dispatch =>
+    dispatch(populateUser(user));
 }
