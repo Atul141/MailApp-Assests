@@ -15,7 +15,6 @@ class ParcelCreateForm extends React.Component {
     if (this.props.selectedUser) {
       user = this.props.selectedUser;
     }
-    console.log('THis', user);
     const dealerDetails = dealers.map((dealer, i) =>
       <option key={`dealer-${i}`}value={dealer.id}>{dealer.name}</option>
     );
@@ -36,7 +35,7 @@ class ParcelCreateForm extends React.Component {
         <div className="form-group">
           <label htmlhtmlFor="mobile">Mobile</label>
           <input type="tel" className="form-control" name="mobile"
-            id="mobile" value={user.email}
+            id="mobile" value={user.phone_no}
           />
         </div>
 
@@ -44,6 +43,13 @@ class ParcelCreateForm extends React.Component {
           <label htmlhtmlFor="Email">Email</label>
           <input type="email" className="form-control" name="Email"
             id="Email" value={user.email}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlhtmlFor="Email">Employee ID</label>
+          <input type="email" className="form-control" name="Email"
+            id="Email" value={user.emp_id}
           />
         </div>
       </div>
