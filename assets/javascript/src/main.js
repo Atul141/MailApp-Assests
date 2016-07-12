@@ -13,7 +13,7 @@ import ParcelCard from './components/ParcelCard.react';
 
 import { configureStore, DevTools } from './stores/AppStore';
 
-const store = configureStore({});
+const store = configureStore({users: []});
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 
 ReactDOM.render(
