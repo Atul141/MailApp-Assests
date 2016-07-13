@@ -1,0 +1,24 @@
+.react-autosuggest__input{
+  @extend .form-control;
+}
+.react-autosuggest__container{
+  position: relative;
+}
+.react-autosuggest__suggestions-container{
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #ccc;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.react-autosuggest__suggestion{
+  padding: 5px 10px;
+  cursor:pointer;
+  &:hover{
+    background: #eee;
+  }
+}
