@@ -61,12 +61,16 @@ class ParcelCreateForm extends React.Component {
             { dealerDetails }
           </select>
         </div>
+      </div>
 
+    </div>
+      <div className="row">
+        <div className="col-lg-12">
         <div className="form-group">
-          <button> Submit </button>
+          <button className="btn btn-primary"> Submit </button>
+        </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 );

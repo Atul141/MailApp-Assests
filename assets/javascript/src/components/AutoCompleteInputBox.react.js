@@ -23,21 +23,6 @@ class AutoCompleteInputBox extends React.Component {
     };
   }
 
-  onChange(event, { newValue, method }) {
-    this.setState({
-      value: newValue,
-    });
-  }
-
-  onSuggestionsUpdateRequested({ value }) {
-    this.setState({
-      value,
-    });
-    if (value && value.length > 3) {
-      this.props.fetchUsers(value);
-    }
-  }
-
   render() {
     const inputProps = {
       placeholder: 'Name',
@@ -54,6 +39,21 @@ class AutoCompleteInputBox extends React.Component {
         onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
       />
     );
+  }
+
+  onChange(event, { newValue, method }) {
+    this.setState({
+      value: newValue,
+    });
+  }
+
+  onSuggestionsUpdateRequested({ value }) {
+    this.setState({
+      value,
+    });
+    if (value && value.length > 3) {
+      this.props.fetchUsers(value);
+    }
   }
 
   onSuggestionSelected(event, { suggestion, suggestionValue, sectionIndex, method }) {
