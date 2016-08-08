@@ -31,7 +31,7 @@ class AutoCompleteInputBox extends React.Component {
     };
 
     return (
-      <Autosuggest suggestions={this.props.users}
+      <Autosuggest suggestions={this.props.users || []}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={inputProps}
